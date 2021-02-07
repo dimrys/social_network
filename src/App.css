@@ -13,12 +13,8 @@
 }
 
 
-
-
-.content{
+.app-wrapper-dialogs{
   grid-area: c;
   background-color: chartreuse;
 }
-.content img{
 
-}
