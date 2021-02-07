@@ -44,7 +44,7 @@ export const state1: State1Type = {
             {id: 2, message: "I like programming", likes: 12 },
             {id: 3, message: "What is your name?", likes: 122 },
         ],
-        newPostText: 'dads'
+        newPostText: ''
 
     },
     dialogsPage: {

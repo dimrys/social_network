@@ -16,18 +16,13 @@ const Dialogs: React.FC<PropsType> = (props) => {
     const dialogItem = props.state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     const message = props.state.messages.map(m => <Message message={m.message}/>)
 
-    const messageText = React.createRef<HTMLTextAreaElement>()
-    const addMessage = () => {
-        if(messageText.current) {
-            props.addMessage()
-        }
 
+    const addMessage = () => {
+        props.addMessage()
     }
 
-    const onChangeMessage = () => {
-        if (messageText.current) {
-            props.updateNewMessage(messageText.current.value)
-        }
+    const onChangeMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewMessage(e.currentTarget.value)
     }
 
     return (
@@ -40,7 +35,8 @@ const Dialogs: React.FC<PropsType> = (props) => {
                 {message}
                 <div>
                     <div>
-                        <textarea ref={messageText} onChange={onChangeMessage} value={props.state.newMessageText}></textarea>
+                        <textarea  onChange={onChangeMessage}
+                                  value={props.state.newMessageText}/>
                     </div>
                     <div>
                         <button onClick={addMessage}>Add message</button>
