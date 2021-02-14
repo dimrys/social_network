@@ -54,10 +54,6 @@ export type StoreType = {
     _state: State1Type
     _changeState: () => void
     subscribe: (observer: () => void) => void
-    addPost: () => void
-    updateNewPost: (textInAdPost: string) => void
-    addMessage: () => void
-    updateNewMessage: (textInAdMessage: string) => void
     getState: () => State1Type
     dispatch: (action: ActionsTypes) => void
 
@@ -103,30 +99,6 @@ export const store: StoreType = {
     },
     getState() {
         return this._state
-    },
-    addPost() {
-        const newPost: PostType = {
-            id: new Date().getDate(), message: this._state.profilePage.newPostText, likes: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._changeState()
-    },
-    updateNewPost(textInAdPost) {
-        this._state.profilePage.newPostText = textInAdPost
-        this._changeState()
-    },
-    addMessage() {
-        const newMessage: MessageType = {
-            id: new Date().getDate(), message: this._state.dialogsPage.newMessageText
-        }
-        this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.newMessageText = ''
-        this._changeState()
-    },
-    updateNewMessage(textInAdMessage) {
-        this._state.dialogsPage.newMessageText = textInAdMessage
-        this._changeState()
     },
     dispatch(action) {
         if(action.type === 'ADD-POST') {
