@@ -1,10 +1,4 @@
-let changeState = () => {
-    console.log("state chenged")
-}
 
-export const subscribe = (observer: () => void) => {
-    changeState = observer
-}
 
 export type PostType = {
     id: number
@@ -37,6 +31,24 @@ export type State1Type = {
     sidebar: SidebarType
 }
 
+type AddPostActionType = {
+    type: "ADD-POST"
+}
+type UpdateNewPostActionType = {
+    type: 'UPDATE-NEW-POST'
+    textInAdPost: string
+}
+type AddMessageActionType = {
+    type: 'ADD-MESSAGE'
+}
+type UpdateNewMessageActionType = {
+    type: 'UPDATE-NEW-MESSAGE'
+    textInAdMessage: string
+}
+
+export type ActionsTypes = AddPostActionType | UpdateNewPostActionType | AddMessageActionType | UpdateNewMessageActionType
+
+
 
 export type StoreType = {
     _state: State1Type
@@ -47,13 +59,14 @@ export type StoreType = {
     addMessage: () => void
     updateNewMessage: (textInAdMessage: string) => void
     getState: () => State1Type
+    dispatch: (action: ActionsTypes) => void
 
 
 }
 
 
- export const store: StoreType = {
-    _state:  {
+export const store: StoreType = {
+    _state: {
         profilePage: {
             posts: [
                 {id: 1, message: "Hello, world!", likes: 5},
@@ -88,6 +101,9 @@ export type StoreType = {
     subscribe(observer) {
         this._changeState = observer
     },
+    getState() {
+        return this._state
+    },
     addPost() {
         const newPost: PostType = {
             id: new Date().getDate(), message: this._state.profilePage.newPostText, likes: 0
@@ -112,70 +128,34 @@ export type StoreType = {
         this._state.dialogsPage.newMessageText = textInAdMessage
         this._changeState()
     },
-    getState() {
-        return this._state
+    dispatch(action) {
+        if(action.type === 'ADD-POST') {
+            const newPost: PostType = {
+                id: new Date().getDate(), message: this._state.profilePage.newPostText, likes: 0
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._changeState()
+        } else if (action.type === 'UPDATE-NEW-POST') {
+            this._state.profilePage.newPostText = action.textInAdPost
+            this._changeState()
+        } else if (action.type === 'ADD-MESSAGE') {
+            const newMessage: MessageType = {
+                id: new Date().getDate(), message: this._state.dialogsPage.newMessageText
+            }
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ''
+            this._changeState()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE') {
+            this._state.dialogsPage.newMessageText = action.textInAdMessage
+            this._changeState()
+        }
+
     }
 
 
 }
 
-// export const state1: State1Type = {
-//     profilePage: {
-//         posts: [
-//             {id: 1, message: "Hello, world!", likes: 5},
-//             {id: 2, message: "I like programming", likes: 12},
-//             {id: 3, message: "What is your name?", likes: 122},
-//         ],
-//         newPostText: ''
-//
-//     },
-//     dialogsPage: {
-//         dialogs: [
-//             {id: 1, name: "Dima"},
-//             {id: 2, name: "Sasha"},
-//             {id: 3, name: "Sasha"},
-//             {id: 4, name: "Masha"},
-//             {id: 5, name: "Kolya"}
-//         ],
-//         messages: [
-//             {id: 1, message: "Hi"},
-//             {id: 2, message: "How are you ?"},
-//             {id: 3, message: "I am fine"},
-//             {id: 4, message: "Do you speak english"},
-//             {id: 5, message: "YOOO"}
-//         ],
-//         newMessageText: ''
-//     },
-//     sidebar: {}
-// }
-//
-// export const addPost = () => {
-//     const newPost: PostType = {
-//         id: new Date().getDate(), message: state1.profilePage.newPostText, likes: 0
-//     }
-//     state1.profilePage.posts.push(newPost)
-//     state1.profilePage.newPostText = ''
-//     changeState()
-// }
-//
-// export const updateNewPost = (textInAdPost: string) => {
-//     state1.profilePage.newPostText = textInAdPost
-//     changeState()
-// }
-//
-// export const addMessage = () => {
-//     const newMessage: MessageType = {
-//         id: new Date().getDate(), message: state1.dialogsPage.newMessageText
-//     }
-//     state1.dialogsPage.messages.push(newMessage)
-//     state1.dialogsPage.newMessageText = ''
-//     changeState()
-// }
-//
-// export const updateNewMessage = (textInAdMessage: string) => {
-//     state1.dialogsPage.newMessageText = textInAdMessage
-//     changeState()
-// }
 
 
 
