@@ -14,13 +14,13 @@ type PropsType = {
 const Mypost: React.FC<PropsType> = (props) => {
 
 
-
     const addPost = () => {
         props.addPost()
     }
 
     const onChangePost = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPost(e.currentTarget.value)
+        let newText = e.currentTarget.value
+        props.updateNewPost(newText)
     }
 
 
@@ -37,7 +37,9 @@ const Mypost: React.FC<PropsType> = (props) => {
 
             </div>
             <div className={s.posts}>
-                {props.posts.map(p => <Post likes={p.likes} message={p.message}/>)}
+                {props.posts.map(p => <Post key={p.id}
+                    likes={p.likes}
+                    message={p.message}/>)}
             </div>
         </div>
     )
