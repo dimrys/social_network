@@ -1,15 +1,14 @@
 import React from "react";
 import s from './Mypost.module.css'
 import Post from "./Post/Post";
-import {PostType, StoreType} from "../../../redux/state";
+import {PostType} from "../../../redux/state";
 
 
 type PropsType = {
-    store: StoreType
-    // newPostText: string
-    // posts: Array<PostType>
-    // addPost: () => void
-    // updateNewPost: (textInAdPost: string) => void
+    newPostText: string
+    posts: Array<PostType>
+    addPost: () => void
+    updateNewPost: (textInAdPost: string) => void
 }
 
 const Mypost: React.FC<PropsType> = (props) => {
@@ -17,11 +16,11 @@ const Mypost: React.FC<PropsType> = (props) => {
 
 
     const addPost = () => {
-        props.store.addPost()
+        props.addPost()
     }
 
     const onChangePost = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        props.store.updateNewPost(e.currentTarget.value)
+        props.updateNewPost(e.currentTarget.value)
     }
 
 
@@ -30,7 +29,7 @@ const Mypost: React.FC<PropsType> = (props) => {
             <h3>My post</h3>
             <div>
                 <div>
-                    <textarea onChange={onChangePost} value={ props.store.getState().profilePage.newPostText}/>
+                    <textarea onChange={onChangePost} value={props.newPostText}/>
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>
@@ -38,7 +37,7 @@ const Mypost: React.FC<PropsType> = (props) => {
 
             </div>
             <div className={s.posts}>
-                {props.store.getState().profilePage.posts.map(p => <Post key={p.id} likes={p.likes} message={p.message}/>)}
+                {props.posts.map(p => <Post likes={p.likes} message={p.message}/>)}
             </div>
         </div>
     )

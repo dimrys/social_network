@@ -8,17 +8,16 @@ import {BrowserRouter, Route} from 'react-router-dom'
 import News from "./components/News/News";
 import Music from './components/Music/Music';
 import Settings from "./components/Settings/Settings";
-import {State1Type, StoreType} from "./redux/state";
+import {State1Type} from "./redux/state";
 
 
 
 type AppType = {
-    store: StoreType
-    // state: State1Type
-    // addPost: () => void
-    // addMessage: () => void
-    // updateNewPost: (textInAdPost: string) => void
-    // updateNewMessage: (textInAdMessage: string) => void
+    state: State1Type
+    addPost: () => void
+    addMessage: () => void
+    updateNewPost: (textInAdPost: string) => void
+    updateNewMessage: (textInAdMessage: string) => void
 }
 
 function App(props: AppType) {
@@ -28,8 +27,8 @@ function App(props: AppType) {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-dialogs">
-                    <Route path='/profile' render={() => <Profile store = {props.store} />}/>
-                    <Route path='/dialogs' render={() => <Dialogs store = {props.store}/>}/>
+                    <Route path='/profile' render={() => <Profile state = {props.state.profilePage} addPost = {props.addPost} updateNewPost = {props.updateNewPost}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs state = {props.state.dialogsPage} addMessage = {props.addMessage} updateNewMessage = {props.updateNewMessage}/>}/>
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>
