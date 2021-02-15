@@ -1,5 +1,3 @@
-
-
 export type PostType = {
     id: number
     message: string
@@ -31,24 +29,17 @@ export type State1Type = {
     sidebar: SidebarType
 }
 
-type AddPostActionType = {
-    type: "ADD-POST"
-}
-type UpdateNewPostActionType = {
-    type: 'UPDATE-NEW-POST'
-    textInAdPost: string
-}
-type AddMessageActionType = {
-    type: 'ADD-MESSAGE'
-}
-type UpdateNewMessageActionType = {
-    type: 'UPDATE-NEW-MESSAGE'
-    textInAdMessage: string
-}
-
-export type ActionsTypes = AddPostActionType | UpdateNewPostActionType | AddMessageActionType | UpdateNewMessageActionType
 
 
+export type ActionsTypes = ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostAC>
+    | ReturnType<typeof addMessageAC>
+    | ReturnType<typeof updateNewMessage>
+
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
 
 export type StoreType = {
     _state: State1Type
@@ -56,8 +47,24 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     getState: () => State1Type
     dispatch: (action: ActionsTypes) => void
-
-
+}
+export const addPostAC = () => {
+    return {type: ADD_POST} as const
+}
+export const updateNewPostAC = (textPost: string) => {
+    return {
+        type: UPDATE_NEW_POST,
+        textInAdPost: textPost
+    } as const
+}
+export const addMessageAC = () => {
+    return {type: ADD_MESSAGE} as const
+}
+export const updateNewMessage = (textMessage: string) => {
+    return {
+        type: UPDATE_NEW_MESSAGE,
+        textInAdMessage: textMessage
+    } as const
 }
 
 
@@ -101,7 +108,7 @@ export const store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if(action.type === 'ADD-POST') {
+        if (action.type === 'ADD-POST') {
             const newPost: PostType = {
                 id: new Date().getDate(), message: this._state.profilePage.newPostText, likes: 0
             }
@@ -122,10 +129,7 @@ export const store: StoreType = {
             this._state.dialogsPage.newMessageText = action.textInAdMessage
             this._changeState()
         }
-
     }
-
-
 }
 
 
