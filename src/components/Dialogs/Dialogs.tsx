@@ -2,7 +2,7 @@ import React from "react";
 import s from './Dialogs.module.css'
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {ActionsTypes, DialogsPage } from "../../redux/state";
+import {ActionsTypes, DialogsPage } from "../../redux/store";
 import {addMessageAC, updateNewMessageAC} from "../../redux/dialogs-reducer";
 
 type PropsType = {
