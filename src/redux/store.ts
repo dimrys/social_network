@@ -2,24 +2,24 @@ import dialogsReducer, {addMessageAC, updateNewMessageAC} from "./dialogs-reduce
 import profileReducer, {addPostAC, updateNewPostAC} from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
-export type PostType = {
+type PostType = {
     id: number
     message: string
     likes: number
 }
-export type  DialogType = {
+type  DialogType = {
     id: number
     name: string
 }
-export type MessageType = {
+type MessageType = {
     id: number
     message: string
 }
-export type  ProfilePageType = {
+type  ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
 }
-export type DialogsPage = {
+type DialogsPage = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
     newMessageText: string
@@ -27,7 +27,7 @@ export type DialogsPage = {
 export type SidebarType = {}
 
 
-export type State1Type = {
+type State1Type = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPage
     sidebar: SidebarType
@@ -42,7 +42,7 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
 
 
 
-export type StoreType = {
+type StoreType = {
     _state: State1Type
     _changeState: () => void
     subscribe: (observer: () => void) => void
@@ -53,7 +53,7 @@ export type StoreType = {
 
 
 
-export const store: StoreType = {
+const store: StoreType = {
     _state: {
         profilePage: {
             posts: [

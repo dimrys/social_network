@@ -1,19 +1,19 @@
 import React from "react";
 import s from './Mypost.module.css'
 import Post from "./Post/Post";
-import {ProfilePageType} from "../../../redux/store";
+import {MyPostPropsType} from "./MypostContainer";
 
 
-type PropsType = {
-    // newPostText: string
-    // posts: Array<PostType>
-    // dispatch: (action: ActionsTypes) => void
-    state: ProfilePageType
-    addPost: () => void
-    onChangePost: (body: string) => void
-}
+// type PropsType = {
+//     newPostText: string
+//     posts: Array<PostType>
+//     dispatch: (action: ActionsTypes) => void
+//     profilePage: ProfilePageType
+//     addPost: () => void
+//     onChangePost: (body: string) => void
+// }
 
-const Mypost: React.FC<PropsType> = (props) => {
+const Mypost: React.FC<MyPostPropsType> = (props) => {
 
 
     const addPost = () => {
@@ -25,13 +25,13 @@ const Mypost: React.FC<PropsType> = (props) => {
         props.onChangePost(newText)
     }
 
-    const posts = props.state.posts.map(p => <Post key={p.id} likes={p.likes} message={p.message}/>)
+    const posts = props.profilePage.posts.map(p => <Post key={p.id} likes={p.likes} message={p.message}/>)
     return (
         <div>
             <h3>My post</h3>
             <div>
                 <div>
-                    <textarea onChange={onChangePost} value={props.state.newPostText}/>
+                    <textarea onChange={onChangePost} value={props.profilePage.newPostText}/>
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>

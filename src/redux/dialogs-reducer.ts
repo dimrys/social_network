@@ -1,38 +1,58 @@
-import {ActionsTypes, DialogsPage, MessageType} from "./store";
+import {ActionsTypes} from "./store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
+export type  DialogType = {
+    id: number
+    name: string
+}
+export type MessageType = {
+    id: number
+    message: string
+}
+export type InitialStateDialogsType = typeof initialState
 
-let  initialState: DialogsPage =  {
+
+let initialState = {
     dialogs: [
         {id: 1, name: "Dima"},
         {id: 2, name: "Sasha"},
         {id: 3, name: "Sasha"},
         {id: 4, name: "Masha"},
         {id: 5, name: "Kolya"}
-    ],
+    ] as Array<DialogType>,
     messages: [
         {id: 1, message: "Hi"},
         {id: 2, message: "How are you ?"},
         {id: 3, message: "I am fine"},
         {id: 4, message: "Do you speak english"},
         {id: 5, message: "YOOO"}
-    ],
+    ] as Array<MessageType>,
     newMessageText: ''
 }
 
-const dialogsReducer = (state = initialState, action: ActionsTypes) => {
+const dialogsReducer = (state: InitialStateDialogsType = initialState, action: ActionsTypes): InitialStateDialogsType => {
     switch (action.type) {
         case ADD_MESSAGE:
-            const newMessage: MessageType = {
-                id: new Date().getDate(), message: state.newMessageText
-            }
-            state.messages.push(newMessage)
-            state.newMessageText = ''
-            return state;
+            const newMessage: MessageType = {id: new Date().getDate(), message: state.newMessageText}
+            return {
+                ...state,
+                messages: [
+                    ...state.messages,
+                    newMessage
+                ],
+                newMessageText: ''
+            };
+        // state.messages.push(newMessage)
+        // state.newMessageText = ''
+        // return state;
         case UPDATE_NEW_MESSAGE:
-            state.newMessageText = action.textInAdMessage
-            return state;
+            return {
+                ...state,
+                newMessageText: action.textInAdMessage
+            }
+        // state.newMessageText = action.textInAdMessage
+        // return state;
         default:
             return state
     }

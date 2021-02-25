@@ -1,42 +1,37 @@
 import React from "react";
-import {addPostAC, updateNewPostAC} from "../../../redux/profile-reducer";
+import {addPostAC, InitialStatePostType, updateNewPostAC} from "../../../redux/profile-reducer";
 import Mypost from "./Mypost";
-import {StoreType} from "../../../redux/store";
-import StoreContext from "../../../StoreContext";
+import {connect} from "react-redux";
+import {AppStateType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
 
 
-type PropsType = {
-    // newPostText: string
-    // posts: Array<PostType>
-    // dispatch: (action: ActionsTypes) => void
-    // store: StoreType
+type MapStatePropsType = {
+    profilePage: InitialStatePostType
+}
+type MapStateDispatchType = {
+    addPost: () => void
+    onChangePost: (body:string) => void
+}
+export type MyPostPropsType = MapStatePropsType & MapStateDispatchType
+
+
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+    return {
+        profilePage: state.profilePage
+    }
+}
+const mapDispatchToProps = (dispatch:Dispatch): MapStateDispatchType => {
+    return {
+        addPost: () => {
+            dispatch(addPostAC())
+        },
+        onChangePost: (body:string) => {
+            dispatch(updateNewPostAC(body))
+        }
+    }
 }
 
-const MypostContainer: React.FC<PropsType> = (props) => {
-
-
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-                    const state = store.getState().profilePage
-
-                    const addPostCont = () => {
-                        store.dispatch(addPostAC())
-                    }
-
-                    const onChangePostCont = (body: string) => {
-                        store.dispatch(updateNewPostAC(body))
-                    }
-
-                    return (
-                        <Mypost state={state} addPost={addPostCont} onChangePost={onChangePostCont}/>
-                    )
-                }
-            }
-
-        </StoreContext.Consumer>
-    )
-}
+const MypostContainer = connect(mapStateToProps, mapDispatchToProps)(Mypost)
 
 export default MypostContainer

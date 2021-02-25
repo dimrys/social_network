@@ -2,21 +2,21 @@ import React from "react";
 import s from './Dialogs.module.css'
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {DialogsPage} from "../../redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type PropsType = {
-    // state: DialogsPage
-    // dispatch: (action: ActionsTypes) => void
-    state: DialogsPage
-    addMessage: () => void
-    onChangeMessage: (body: string) => void
-}
+// type PropsType = {
+//     state: DialogsPage
+//     dispatch: (action: ActionsTypes) => void
+//     dialogsPage: DialogsPage
+//     addMessage: () => void
+//     onChangeMessage: (body: string) => void
+// }
 
 
-const Dialogs: React.FC<PropsType> = (props) => {
+const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-    const dialogItem = props.state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
-    const message = props.state.messages.map(m => <Message message={m.message}/>)
+    const dialogItem = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
+    const message = props.dialogsPage.messages.map(m => <Message message={m.message}/>)
 
 
     const addMessage = () => {
@@ -39,7 +39,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
                 <div>
                     <div>
                         <textarea  onChange={onChangeMessage}
-                                  value={props.state.newMessageText}/>
+                                  value={props.dialogsPage.newMessageText}/>
                     </div>
                     <div>
                         <button onClick={addMessage}>Add message</button>
