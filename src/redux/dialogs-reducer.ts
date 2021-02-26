@@ -43,16 +43,11 @@ const dialogsReducer = (state: InitialStateDialogsType = initialState, action: A
                 ],
                 newMessageText: ''
             };
-        // state.messages.push(newMessage)
-        // state.newMessageText = ''
-        // return state;
         case UPDATE_NEW_MESSAGE:
             return {
                 ...state,
                 newMessageText: action.textInAdMessage
             }
-        // state.newMessageText = action.textInAdMessage
-        // return state;
         default:
             return state
     }

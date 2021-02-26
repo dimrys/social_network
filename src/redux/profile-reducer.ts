@@ -32,16 +32,11 @@ const profileReducer = (state: InitialStatePostType = initialState, action: Acti
                 ],
                 newPostText: ''
             };
-            // state.posts.push(newPost)
-            // state.newPostText = ''
-            // return state;
         case UPDATE_NEW_POST:
             return {
                 ...state,
                 newPostText: action.textInAdPost
             }
-            // state.newPostText = action.textInAdPost
-            // return state;
         default:
             return state
     }
