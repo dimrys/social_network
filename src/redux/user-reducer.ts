@@ -4,6 +4,8 @@ import {ActionsTypes} from "./store";
 const FOLLOW_USER = 'FOLLOW-USER'
 const UNFOLLOW_USER = 'UNFOLLOW-USER'
 const SET_USERS = 'SET-USERS'
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+const SET_TOTAL_USER = 'SET-TOTAL_USER'
 
 // type LocationType = {
 //     city: string
@@ -29,7 +31,11 @@ export type UserType = {
 export type InitialStateUserType = typeof initialState
 
 let initialState = {
-    users: [] as Array<UserType>
+    users: [] as Array<UserType>,
+    pageSize:8,
+    totalUsersCount: 0,
+    currentPage: 2
+
 }
 
 
@@ -58,8 +64,20 @@ const usersReducer = (state: InitialStateUserType = initialState, action: Action
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: action.users
             }
+        case SET_CURRENT_PAGE: {
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+        }
+        case "SET-TOTAL_USER": {
+            return {
+                ...state,
+                totalUsersCount: action.totalUser
+            }
+        }
 
         default:
             return state
@@ -81,5 +99,15 @@ export const unFollowAC = (idUser: number) => {
 export const setUsersAC = (users: Array<UserType>) => {
     return {
         type: SET_USERS, users
+    } as const
+}
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: SET_CURRENT_PAGE, currentPage
+    } as const
+}
+export const setTotalUserAC =(totalUser: number) => {
+    return {
+        type: SET_TOTAL_USER, totalUser
     } as const
 }
