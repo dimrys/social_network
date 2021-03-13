@@ -1,7 +1,7 @@
 import dialogsReducer, {addMessageAC, updateNewMessageAC} from "./dialogs-reducer";
 import profileReducer, {addPostAC, updateNewPostAC} from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
-import {followAC, setCurrentPageAC, setTotalUserAC, setUsersAC, unFollowAC} from "./user-reducer";
+import {followAC, setCurrentPageAC, setTotalUserAC, setUsersAC, toggleFetchingAC, unFollowAC} from "./user-reducer";
 
 type PostType = {
     id: number
@@ -44,6 +44,7 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUsersAC>
 | ReturnType<typeof setCurrentPageAC>
 | ReturnType<typeof setTotalUserAC>
+| ReturnType<typeof toggleFetchingAC>
 
 
 

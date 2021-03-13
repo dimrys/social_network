@@ -6,6 +6,7 @@ const UNFOLLOW_USER = 'UNFOLLOW-USER'
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USER = 'SET-TOTAL_USER'
+const TOGGLE_FETCHING = 'TOGGLE-FETCHING'
 
 // type LocationType = {
 //     city: string
@@ -34,7 +35,8 @@ let initialState = {
     users: [] as Array<UserType>,
     pageSize:8,
     totalUsersCount: 0,
-    currentPage: 2
+    currentPage: 2,
+    isFetching: true
 
 }
 
@@ -72,10 +74,16 @@ const usersReducer = (state: InitialStateUserType = initialState, action: Action
                 currentPage: action.currentPage
             }
         }
-        case "SET-TOTAL_USER": {
+        case SET_TOTAL_USER: {
             return {
                 ...state,
                 totalUsersCount: action.totalUser
+            }
+        }
+        case TOGGLE_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.isFetching
             }
         }
 
@@ -109,5 +117,11 @@ export const setCurrentPageAC = (currentPage: number) => {
 export const setTotalUserAC =(totalUser: number) => {
     return {
         type: SET_TOTAL_USER, totalUser
+    } as const
+}
+
+export const toggleFetchingAC = (isFetching:boolean) => {
+    return {
+        type: TOGGLE_FETCHING, isFetching
     } as const
 }
