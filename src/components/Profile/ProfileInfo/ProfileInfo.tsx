@@ -2,6 +2,7 @@ import React from "react";
 import s from './ProfileInfo.module.css'
 import {ProfileType} from "../../../redux/profile-reducer";
 import { Loader } from "../../../assets/Loader/Loader ";
+import userPhoto from "../../../assets/images/user.png";
 
 
 type ProfileInfoTypeProps = {
@@ -20,7 +21,8 @@ const ProfileInfo: React.FC<ProfileInfoTypeProps> = (props) => {
                     src="https://www.film.ru/sites/default/files/styles/thumb_685x385/public/trailers_frame/peklo-treyler.jpg"/>
             </div>
             <div className={s.description}>
-                <img src={props.profile.photos.large ? props.profile.photos.large : ""}/>
+                <img className={s.avatar} src={props.profile.photos.large ? props.profile.photos.large : userPhoto}/>
+                <div>{props.profile.fullName}</div>
                 Avatar + description
             </div>
 

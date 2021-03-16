@@ -37,7 +37,7 @@ export const Users: React.FC<PropsType> = (props) => {
                     return <div key={u.id} className={style.user__container}>
                         <div className={style.avatar__container}>
                             <div>
-                                <NavLink to ='/profile/2'>
+                                <NavLink to ={`/profile/${u.id}`}>
                                     <img className={style.avatar} src={u.photos.small !==null
                                         ? u.photos.small
                                         : userPhoto
