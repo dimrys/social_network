@@ -2,6 +2,7 @@ import dialogsReducer, {addMessageAC, updateNewMessageAC} from "./dialogs-reduce
 import profileReducer, {addPostAC, setUserProfile, updateNewPostAC} from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import {follow, setCurretPage, setFetching, setTotalUser, setUsers, unFollow} from "./user-reducer";
+import {setUserData} from "./auth-reducer";
 
 type PostType = {
     id: number
@@ -46,6 +47,7 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof setTotalUser>
     | ReturnType<typeof setFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setUserData>
 
 
 type StoreType = {
