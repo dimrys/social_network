@@ -15,6 +15,7 @@ import {Dispatch} from "redux";
 import axios from "axios";
 import {Users} from "./Users";
 import {Loader} from "../../assets/Loader/Loader ";
+import {usersAPI} from "../../API/API";
 
 
 type MapStatePropsType = {
@@ -39,22 +40,22 @@ class UsersContainer extends React.Component<UsersPropsType>{
 
     componentDidMount = (): void => {
         this.props.setFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(resolve => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.setFetching(false)
-                this.props.setUsers(resolve.data.items)
-                this.props.setTotalUser(resolve.data.totalCount)
-            } )
+                this.props.setUsers(data.items)
+                this.props.setTotalUser(data.totalCount)
+            })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setFetching(true)
         this.props.setCurretPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(resolve => {
-                this.props.setUsers(resolve.data.items)
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
+                this.props.setUsers(data.items)
                 this.props.setFetching(false)
-            } )
+            })
     }
 
 

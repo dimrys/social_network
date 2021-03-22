@@ -16,7 +16,6 @@ const Header: React.FC<HeaderPropsType> = (props) => {
                     ? props.login
                     : <NavLink to={'/login'}>LOGIN</NavLink>
                 }
-
             </div>
         </header>
     )

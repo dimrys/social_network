@@ -4,6 +4,7 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {setUserData} from "../../redux/auth-reducer";
+import {authAPI} from "../../API/API";
 
 
 type MapStateToProps = {
@@ -17,12 +18,10 @@ interface ProfileConnectTypeProps extends MapStateToProps {
 
 class HeaderContainer extends React.Component<ProfileConnectTypeProps>{
     componentDidMount(): void {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
-            .then(resolve => {
-                if(resolve.data.resultCode === 0) {
-                    let {id, login, email} = resolve.data.data
+        authAPI.logMe()
+            .then(data => {
+                if(data.resultCode === 0) {
+                    let {id, login, email} = data.data
                     this.props.setUserData(id, login, email)
                 }
             } )
