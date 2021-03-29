@@ -1,10 +1,8 @@
 import React from "react";
 import Header from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {setUserData} from "../../redux/auth-reducer";
-import {authAPI} from "../../API/API";
+import {authMe} from "../../redux/auth-reducer";
 
 
 type MapStateToProps = {
@@ -12,19 +10,13 @@ type MapStateToProps = {
     login: string
 }
 interface ProfileConnectTypeProps extends MapStateToProps {
-    setUserData: (id: number, login: string, email: string) => void
+    authMe: () => void
 }
 
 
 class HeaderContainer extends React.Component<ProfileConnectTypeProps>{
     componentDidMount(): void {
-        authAPI.logMe()
-            .then(data => {
-                if(data.resultCode === 0) {
-                    let {id, login, email} = data.data
-                    this.props.setUserData(id, login, email)
-                }
-            } )
+        this.props.authMe()
     }
 
     render(){
@@ -41,4 +33,4 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
 }
 
 
-export default connect(mapStateToProps, {setUserData})(HeaderContainer)
+export default connect(mapStateToProps, {authMe})(HeaderContainer)

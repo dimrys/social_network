@@ -1,7 +1,14 @@
-import dialogsReducer, {addMessageAC, updateNewMessageAC} from "./dialogs-reducer";
-import profileReducer, {addPostAC, setUserProfile, updateNewPostAC} from "./profile-reducer";
-import sidebarReducer from "./sidebar-reducer";
-import {follow, followingProgress, setCurretPage, setFetching, setTotalUser, setUsers, unFollow} from "./user-reducer";
+import {addMessageAC, updateNewMessageAC} from "./dialogs-reducer";
+import {addPostAC, setUserProfile, updateNewPostAC} from "./profile-reducer";
+import {
+    followConfirm,
+    followingProgress,
+    setCurretPage,
+    setFetching,
+    setTotalUser,
+    setUsers,
+    unFollowConfirm
+} from "./user-reducer";
 import {setUserData} from "./auth-reducer";
 
 type PostType = {
@@ -40,8 +47,8 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof updateNewMessageAC>
-    | ReturnType<typeof follow>
-    | ReturnType<typeof unFollow>
+    | ReturnType<typeof followConfirm>
+    | ReturnType<typeof unFollowConfirm>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurretPage>
     | ReturnType<typeof setTotalUser>
