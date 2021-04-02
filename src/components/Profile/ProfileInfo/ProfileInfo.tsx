@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css'
 import {ProfileType} from "../../../redux/profile-reducer";
 import { Loader } from "../../../assets/Loader/Loader ";
 import userPhoto from "../../../assets/images/user.png";
+import ProfileStatus from "../ProfileStatus/ProfieStatus";
 
 
 type ProfileInfoTypeProps = {
@@ -16,14 +17,14 @@ const ProfileInfo: React.FC<ProfileInfoTypeProps> = (props) => {
     return(
         <div className={s.content}>
 
-            <div>
-                <img className={s.img}
-                    src="https://www.film.ru/sites/default/files/styles/thumb_685x385/public/trailers_frame/peklo-treyler.jpg"/>
-            </div>
+            {/*<div>*/}
+            {/*    <img className={s.img}*/}
+            {/*        src="https://www.film.ru/sites/default/files/styles/thumb_685x385/public/trailers_frame/peklo-treyler.jpg"/>*/}
+            {/*</div>*/}
             <div className={s.description}>
                 <img className={s.avatar} src={props.profile.photos.large ? props.profile.photos.large : userPhoto}/>
                 <div>{props.profile.fullName}</div>
-                Avatar + description
+                <ProfileStatus status={"Test Status"}/>
             </div>
 
         </div>
