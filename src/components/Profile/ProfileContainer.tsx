@@ -4,9 +4,11 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {getUserProfile, ProfileType} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type MapStateToProps = {
     profile: ProfileType
+
 }
 
 interface ProfileConnectTypeProps extends MapStateToProps {
@@ -29,6 +31,7 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
     render() {
+
         return (
             <Profile {...this.props} profile={this.props.profile}/>
         )
@@ -38,11 +41,11 @@ class ProfileContainer extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
     }
 }
 
 
 let WithDataContainerProfile = withRouter(ProfileContainer)
 
-export default connect(mapStateToProps, {getUserProfile})(WithDataContainerProfile)
+export default withAuthRedirect(connect(mapStateToProps, {getUserProfile})(WithDataContainerProfile))
