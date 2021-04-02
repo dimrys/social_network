@@ -5,6 +5,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {Users} from "./Users";
 import {Loader} from "../../assets/Loader/Loader ";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 type MapStatePropsType = {
@@ -110,11 +111,15 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 
 
-export default withAuthRedirect(connect(mapStateToProps, {
-    follow,
-    unFollow,
-    getUsers
-})(UsersContainer))
+
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, {
+        follow,
+        unFollow,
+        getUsers
+    })
+)(UsersContainer)
 
 
 
