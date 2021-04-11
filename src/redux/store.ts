@@ -1,5 +1,5 @@
 import {addMessageAC, updateNewMessageAC} from "./dialogs-reducer";
-import {addPostAC, setUserProfile, updateNewPostAC} from "./profile-reducer";
+import {addPostAC, setStatus, setUserProfile, updateNewPostAC} from "./profile-reducer";
 import {
     followConfirm,
     followingProgress,
@@ -56,6 +56,7 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserData>
     | ReturnType<typeof followingProgress>
+    | ReturnType<typeof setStatus>
 
 
 type StoreType = {

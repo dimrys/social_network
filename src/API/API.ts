@@ -33,6 +33,18 @@ export const authAPI = {
 export const profileAPI = {
     getProfile(userId: string) {
         return instance.get(`profile/${userId}`)
-            .then(response => response.data)
+            // .then(response => response.data)
+    },
+    getStatus(userId: string) {
+        return instance.get(`/profile/status/${userId}`)
+    },
+    updateStatus(status: string) {
+        return instance.put<ResponseType>(`/profile/status`, {status: status})
     }
+}
+
+type ResponseType = {
+    resultCode: number
+    messages: Array<string>
+    data: {}
 }

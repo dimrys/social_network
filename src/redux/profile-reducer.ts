@@ -5,6 +5,7 @@ import {profileAPI} from "../API/API";
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
 const SET_USER_PROFILE = 'SET-USER_PROFILE'
+const SET_STATUS = 'SET-STATUS'
 
 type PostType = {
     id: number
@@ -45,7 +46,8 @@ let initialState = {
         {id: 3, message: "What is your name?", likes: 122},
     ] as Array<PostType>,
     newPostText: 'test',
-    profile: {} as ProfileType
+    profile: {} as ProfileType,
+    status: ""
 }
 
 
@@ -72,6 +74,12 @@ const profileReducer = (state: InitialStatePostType = initialState, action: Acti
                 profile: action.profile
             }
         }
+        case SET_STATUS: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default:
             return state
     }
@@ -93,10 +101,29 @@ export const setUserProfile = (profile: ProfileType) => {
         type: SET_USER_PROFILE, profile
     } as const
 }
+export const setStatus = (status: string) => {
+    return {
+        type: SET_STATUS, status
+    } as const
+}
 
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.getProfile(userId)
-        .then(data => {
-            dispatch(setUserProfile(data))
+        .then(response => {
+            dispatch(setUserProfile(response.data))
+        })
+}
+export const getStatus = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(userId)
+        .then(response => {
+            dispatch(setStatus(response.data))
+        })
+}
+export const updateStatus = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if(response.data.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
         })
 }
