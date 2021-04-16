@@ -1,5 +1,5 @@
-import {addMessageAC, updateNewMessageAC} from "./dialogs-reducer";
-import {addPostAC, setStatus, setUserProfile, updateNewPostAC} from "./profile-reducer";
+import {addMessageAC} from "./dialogs-reducer";
+import {addPostAC, setStatus, setUserProfile} from "./profile-reducer";
 import {
     followConfirm,
     followingProgress,
@@ -44,9 +44,7 @@ type State1Type = {
 
 
 export type ActionsTypes = ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateNewPostAC>
     | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof updateNewMessageAC>
     | ReturnType<typeof followConfirm>
     | ReturnType<typeof unFollowConfirm>
     | ReturnType<typeof setUsers>
