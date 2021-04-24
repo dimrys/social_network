@@ -2,15 +2,16 @@ import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {authMe} from "../../redux/auth-reducer";
+import {authMe, logOut} from "../../redux/auth-reducer";
 
 
 type MapStateToProps = {
     isAuth: boolean
-    login: string
+    login: string | null
 }
 interface ProfileConnectTypeProps extends MapStateToProps {
     authMe: () => void
+    logOut: () => void
 }
 
 
@@ -28,9 +29,9 @@ class HeaderContainer extends React.Component<ProfileConnectTypeProps>{
 const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {
         isAuth: state.auth.isAuth,
-        login: state.auth.auth.login
+        login: state.auth.login
     }
 }
 
 
-export default connect(mapStateToProps, {authMe})(HeaderContainer)
+export default connect(mapStateToProps, {authMe,logOut})(HeaderContainer)
