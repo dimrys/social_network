@@ -10,15 +10,14 @@ type MapStateToProps = {
     login: string | null
 }
 interface ProfileConnectTypeProps extends MapStateToProps {
-    authMe: () => void
     logOut: () => void
 }
 
 
 class HeaderContainer extends React.Component<ProfileConnectTypeProps>{
-    componentDidMount(): void {
-        this.props.authMe()
-    }
+    // componentDidMount(): void {
+    //     this.props.authMe()
+    // }
 
     render(){
        return (
@@ -34,4 +33,4 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
 }
 
 
-export default connect(mapStateToProps, {authMe,logOut})(HeaderContainer)
+export default connect(mapStateToProps, {logOut})(HeaderContainer)

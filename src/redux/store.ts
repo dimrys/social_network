@@ -10,6 +10,7 @@ import {
     unFollowConfirm
 } from "./user-reducer";
 import {setUserData} from "./auth-reducer";
+import {initializedSuccess} from "./app-reducer";
 
 type PostType = {
     id: number
@@ -55,6 +56,7 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserData>
     | ReturnType<typeof followingProgress>
     | ReturnType<typeof setStatus>
+| ReturnType<typeof initializedSuccess>
 
 
 type StoreType = {
