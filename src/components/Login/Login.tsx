@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {logIn} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import { Redirect } from "react-router-dom";
+import style from  "./../comon/FormsControls/FormsControls.module.css"
 
 
 type MapDispathType = {
@@ -59,6 +60,11 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <label><Field type={"checkbox"} name={"remember"} component={Input}/> remember me</label>
             </div>
+            {
+                props.error && <div className={style.formSummaryError}>
+                    {props.error}
+                </div>
+            }
             <div>
                 <button>Login</button>
             </div>
